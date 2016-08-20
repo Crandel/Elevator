@@ -125,7 +125,6 @@ class ElevatorSystem():
             el = self.elevators[e_id]
             # index of current floors in sorted goal list
             num = bisect(g_list, el.current_floor)
-            # import pdb; pdb.set_trace()  # BREAKPOINT
 
             # check if elevator higher than last goal floor
             if num >= len(g_list):
