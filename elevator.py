@@ -91,9 +91,29 @@ class ElevatorSystem():
         self.goal_floors = {i: [] for i in range(elevator_number)}
         self.last_floor = floor_number
 
+    def status(self, e_id: int) -> (int, int):
+        '''
+        Return status of elevator
+        Args:
+            e_id (int): Elevator Id.
+
+        Returns:
+            int: Current floor
+            int: Target floor
+        '''
+        if 0 <= e_id <= len(self.elevators):
+            el = self.elevators[e_id]
+            return el.current_floor, el.target_floor_num
+
     def pickup(self, e_id: int, floor_num: int) -> None:
         '''
         Set new goal floor outside elevator
+        Args:
+            e_id (int): Elevator Id.
+            e_id (int): Goal floor number.
+
+        Returns:
+            None
         '''
         if 0 <= floor_num <= self.last_floor:
 
@@ -109,8 +129,8 @@ class ElevatorSystem():
 
             # check if elevator higher than last goal floor
             if num >= len(g_list):
-                # check if elevator lower than first goal floor
                 el.change_target(1, g_list[-1])
+            # check if elevator lower than first goal floor
             elif num == 0:
                 el.change_target(0, g_list[0])
             else:
@@ -127,6 +147,12 @@ class ElevatorSystem():
     def remove_goal_floor(self, e_id: int, floor: int) -> None:
         '''
         Remove floor from goal list for elevator
+        Args:
+            e_id (int): Elevator Id.
+            floor (int): Used goal floor.
+
+        Returns:
+            None
         '''
         g_list = self.goal_floors[e_id]
         if floor in g_list:
