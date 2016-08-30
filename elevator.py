@@ -147,7 +147,7 @@ class ElevatorSystem():
             if not el.is_move:
                 el.move()
         else:
-            return Exception('Wrong floor')
+            return Exception('Wrong floor or elevator id')
 
     def remove_goal_floor(self, e_id: int, floor: int) -> None:
         '''
