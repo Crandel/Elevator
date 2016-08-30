@@ -105,17 +105,23 @@ class ElevatorSystem():
             el = self.elevators[e_id]
             return el.current_floor, el.target_floor_num
 
+    def check_id(self, e_id: int) -> bool:
+        if 0 <= e_id <= len(self.elevators):
+            return True
+        else:
+            return False
+
     def pickup(self, e_id: int, floor_num: int) -> None:
         '''
         Set new goal floor outside elevator
         Args:
             e_id (int): Elevator Id.
-            e_id (int): Goal floor number.
+            floor_num (int): Goal floor number.
 
         Returns:
             None
         '''
-        if 0 <= floor_num <= self.last_floor:
+        if 0 <= floor_num <= self.last_floor and self.check_id(e_id):
 
             # git list with goal floors for current elevator
             g_list = self.goal_floors[e_id]
@@ -153,9 +159,10 @@ class ElevatorSystem():
         Returns:
             None
         '''
-        g_list = self.goal_floors[e_id]
-        if floor in g_list:
-            g_list.remove(floor)
+        if self.check_id(e_id):
+            g_list = self.goal_floors[e_id]
+            if floor in g_list:
+                g_list.remove(floor)
 
     def __str__(self) -> str:
         return '%d elevators for %d floors' % (len(self.elevators), self.last_floor)
